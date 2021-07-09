@@ -28,7 +28,7 @@ function writeSettingFile(options, outDir, env) {
       return;
     }
     options.resolve && options.resolve(err);
-    console.info("settings创建成功");
+    console.info(options.file+"创建成功");
   });
 }
 function generateSettings(options, outDir, env) {
