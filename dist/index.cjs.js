@@ -40,7 +40,7 @@ function generateSettings(options, outDir, env) {
   }
   writeSettingFile(options, outDir, Object.assign({}, env, options.config));
 }
- function generateConfigIntoDist (options, userConfig)  {
+ function generateConfigIntoDist (options)  {
   let config, mode;
   return {
     apply: "build",
@@ -53,7 +53,6 @@ function generateSettings(options, outDir, env) {
       mode = arg[1].mode;
     },
     closeBundle() {
-      console.log(userConfig, "sdf");
       const env = vite.loadEnv(mode, process.cwd());
       let outDir = `${config.root}/${config.build.outDir}/`;
       generateSettings(options, outDir, env);
