@@ -1,1 +1,60 @@
-import{writeFile as e}from"fs";import{loadEnv as o}from"vite";function n(o,n,t){o.data=function(e,o){const n=`window.${e.globalName}`;return`${n}=${JSON.stringify(o,void 0,2)};\n  Object.freeze(${n});\n  Object.defineProperty(window, "${e.globalName}", {\n    configurable: false,\n    writable: false,\n  });`}(o,t)+(o.data?o.data:""),o.file=n+o.file,e(o.file,o.data,o.options||{},(e=>{if(e)return o.reject&&o.reject(e),void console.error("settings创建失败,你可能需要重新打包"+e);o.resolve&&o.resolve(e),console.info("settings创建成功")}))}function t(e,t){let i,r;return{apply:"build",name:"write-env-in-dist",configResolved(e){i=e},config:(...e)=>{r=e[1].mode},closeBundle(){console.log(t,"sdf");const s=o(r,process.cwd());let l=`${i.root}/${i.build.outDir}/`;!function(e,o,t){Array.isArray(e)?e.forEach((e=>{n(e,o,Object.assign({},t,e.config))})):n(e,o,Object.assign({},t,e.config))}(e,l,s)}}}export default t;export{t as generateConfigIntoDist};
+import { writeFile } from 'fs';
+import { loadEnv } from 'vite';
+
+// thanks for vben
+function generateFileContent(options, env) {
+  const windowConf = `window.${options.globalName}`;
+  const configStr = `${windowConf}=${JSON.stringify(env, undefined, 2)};
+  Object.freeze(${windowConf});
+  Object.defineProperty(window, "${options.globalName}", {
+    configurable: false,
+    writable: false,
+  });`;
+  return configStr;
+}
+
+function writeSettingFile(options, outDir, env) {
+  options.data =
+    generateFileContent(options, env) + (options.data ? options.data : "");
+  options.file = outDir + options.file;
+  writeFile(options.file, options.data, options.options || {}, (err) => {
+    if (err) {
+      options.reject && options.reject(err);
+      console.error("settings创建失败,你可能需要重新打包" + err);
+      return;
+    }
+    options.resolve && options.resolve(err);
+    console.info("settings创建成功");
+  });
+}
+function generateSettings(options, outDir, env) {
+  if (Array.isArray(options)) {
+    options.forEach((item) => {
+      writeSettingFile(item, outDir, Object.assign({}, env, item.config));
+    });
+    return;
+  }
+  writeSettingFile(options, outDir, Object.assign({}, env, options.config));
+}
+ function generateConfigIntoDist (options, userConfig)  {
+  let config, mode;
+  return {
+    apply: "build",
+    name: "write-env-in-dist",
+    configResolved(resolvedConfig) {
+      // 存储最终解析的配置
+      config = resolvedConfig;
+    },
+    config: (...arg) => {
+      mode = arg[1].mode;
+    },
+    closeBundle() {
+      const env = loadEnv(mode, process.cwd());
+      let outDir = `${config.root}/${config.build.outDir}/`;
+      generateSettings(options, outDir, env);
+    },
+  };
+}
+
+export default generateConfigIntoDist;
+export { generateConfigIntoDist };

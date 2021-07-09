@@ -1,1 +1,65 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("fs"),o=require("vite");function t(o,t,n){o.data=function(e,o){const t=`window.${e.globalName}`;return`${t}=${JSON.stringify(o,void 0,2)};\n  Object.freeze(${t});\n  Object.defineProperty(window, "${e.globalName}", {\n    configurable: false,\n    writable: false,\n  });`}(o,n)+(o.data?o.data:""),o.file=t+o.file,e.writeFile(o.file,o.data,o.options||{},(e=>{if(e)return o.reject&&o.reject(e),void console.error("settings创建失败,你可能需要重新打包"+e);o.resolve&&o.resolve(e),console.info("settings创建成功")}))}function n(e,n){let i,r;return{apply:"build",name:"write-env-in-dist",configResolved(e){i=e},config:(...e)=>{r=e[1].mode},closeBundle(){console.log(n,"sdf");const s=o.loadEnv(r,process.cwd());let l=`${i.root}/${i.build.outDir}/`;!function(e,o,n){Array.isArray(e)?e.forEach((e=>{t(e,o,Object.assign({},n,e.config))})):t(e,o,Object.assign({},n,e.config))}(e,l,s)}}}exports.default=n,exports.generateConfigIntoDist=n;
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var fs = require('fs');
+var vite = require('vite');
+
+// thanks for vben
+function generateFileContent(options, env) {
+  const windowConf = `window.${options.globalName}`;
+  const configStr = `${windowConf}=${JSON.stringify(env, undefined, 2)};
+  Object.freeze(${windowConf});
+  Object.defineProperty(window, "${options.globalName}", {
+    configurable: false,
+    writable: false,
+  });`;
+  return configStr;
+}
+
+function writeSettingFile(options, outDir, env) {
+  options.data =
+    generateFileContent(options, env) + (options.data ? options.data : "");
+  options.file = outDir + options.file;
+  fs.writeFile(options.file, options.data, options.options || {}, (err) => {
+    if (err) {
+      options.reject && options.reject(err);
+      console.error("settings创建失败,你可能需要重新打包" + err);
+      return;
+    }
+    options.resolve && options.resolve(err);
+    console.info("settings创建成功");
+  });
+}
+function generateSettings(options, outDir, env) {
+  if (Array.isArray(options)) {
+    options.forEach((item) => {
+      writeSettingFile(item, outDir, Object.assign({}, env, item.config));
+    });
+    return;
+  }
+  writeSettingFile(options, outDir, Object.assign({}, env, options.config));
+}
+ function generateConfigIntoDist (options, userConfig)  {
+  let config, mode;
+  return {
+    apply: "build",
+    name: "write-env-in-dist",
+    configResolved(resolvedConfig) {
+      // 存储最终解析的配置
+      config = resolvedConfig;
+    },
+    config: (...arg) => {
+      mode = arg[1].mode;
+    },
+    closeBundle() {
+      console.log(userConfig, "sdf");
+      const env = vite.loadEnv(mode, process.cwd());
+      let outDir = `${config.root}/${config.build.outDir}/`;
+      generateSettings(options, outDir, env);
+    },
+  };
+}
+
+exports.default = generateConfigIntoDist;
+exports.generateConfigIntoDist = generateConfigIntoDist;

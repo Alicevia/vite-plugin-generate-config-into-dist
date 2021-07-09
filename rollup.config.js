@@ -7,5 +7,5 @@ export default {
     {file:'dist/index.cjs.js', format: 'cjs' },
     {file:'dist/index.es.js', format: 'es' },
   ],
-  plugins:[terser()]
+  // plugins:[terser()]
 };
