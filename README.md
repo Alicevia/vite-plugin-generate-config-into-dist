@@ -28,7 +28,7 @@ export default ( ) => {
             config: { skdfj: 1 },
           },
         ],
-      ),
+      )
     ],
   };
 };
