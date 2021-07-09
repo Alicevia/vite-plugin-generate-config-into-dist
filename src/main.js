@@ -35,7 +35,7 @@ function generateSettings(options, outDir, env) {
   }
   writeSettingFile(options, outDir, Object.assign({}, env, options.config));
 }
-export function generateConfigIntoDist (options, userConfig)  {
+ function generateConfigIntoDist (options, userConfig)  {
   let config, mode;
   return {
     apply: "build",
@@ -55,5 +55,6 @@ export function generateConfigIntoDist (options, userConfig)  {
     },
   };
 };
-
+export {generateConfigIntoDist}
+export default generateConfigIntoDist
 
