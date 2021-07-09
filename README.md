@@ -14,7 +14,7 @@ export default ( ) => {
       //   globalName: "unionpay_settings",
        //  config,
       // }),
-      // useage  2
+      // useage  2  notice file not the same
       writeFileInDist(
         [
           {
