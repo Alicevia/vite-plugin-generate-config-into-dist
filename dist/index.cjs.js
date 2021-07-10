@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, "__esModule", { value: true });
 
-var fs = require('fs');
-var vite = require('vite');
+var fs = require("fs");
+var vite = require("vite");
 
 // thanks for vben
 function generateFileContent(options, env) {
@@ -24,11 +24,11 @@ function writeSettingFile(options, outDir, env) {
   fs.writeFile(options.file, options.data, options.options || {}, (err) => {
     if (err) {
       options.reject && options.reject(err);
-      console.error("settings创建失败,你可能需要重新打包" + err);
+      console.error(`${options.file} create error,and you can try again` + err);
       return;
     }
     options.resolve && options.resolve(err);
-    console.info(options.file+"创建成功");
+    console.info(options.file + "create successfully");
   });
 }
 function generateSettings(options, outDir, env) {
@@ -40,7 +40,7 @@ function generateSettings(options, outDir, env) {
   }
   writeSettingFile(options, outDir, Object.assign({}, env, options.config));
 }
- function generateConfigIntoDist (options)  {
+function generateConfigIntoDist(options) {
   let config, mode;
   return {
     apply: "build",

@@ -4,7 +4,7 @@
   "title": "vite-plugin-generate-config-into-dist",
   "description": "The plugin will put the env into a JS file that will be packaged in the dist folder, but you can also put the project configuration in there",
   "main": "dist/index.cjs.js",
-  "module": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
   "scripts": {
     "build": "rollup -c"
   },
