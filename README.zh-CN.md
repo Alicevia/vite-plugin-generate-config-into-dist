@@ -1,4 +1,4 @@
-# vite-plugin-generate-config-into-dist
+# [vite-plugin-generate-config-into-dist](https://github.com/Alicevia/vite-plugin-generate-config-into-dist)
 
 **中文** | [English](./README.md)
 
@@ -60,4 +60,5 @@ export default ( ) => {
 
 ## 感谢
 
-@anncwb/vue-vben-admin 
+[@anncwb/vue-vben-admin](https://github.com/anncwb/vue-vben-admin) 
+

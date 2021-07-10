@@ -1,4 +1,4 @@
-# vite-plugin-generate-config-into-dist
+# [vite-plugin-generate-config-into-dist](https://github.com/Alicevia/vite-plugin-generate-config-into-dist)
 
 **English** | [中文](./README.zh-CN.md)
 
@@ -60,5 +60,5 @@ The config you pass in should be a separate JS object. You cannot introduce env 
 
 ## Thanks 
 
-@anncwb/vue-vben-admin
+[@anncwb/vue-vben-admin](https://github.com/anncwb/vue-vben-admin)
 
