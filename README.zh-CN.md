@@ -13,6 +13,14 @@
 ## 用法
 
 ```js
+yarn add vite-plugin-generate-config-into-dist -D
+or
+npm i vite-plugin-generate-config-into-dist -D
+```
+
+
+
+```js
 vite.config.js
 import config from 'src/.../config.js'//your project configure
 import generateConfigIntoDistfrom "vite-plugin-generate-config-into-dist";

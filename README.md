@@ -13,6 +13,14 @@ After the project is packaged and online, it may need to change the background i
 ## Usage
 
 ```js
+yarn add vite-plugin-generate-config-into-dist -D
+or
+npm i vite-plugin-generate-config-into-dist -D
+```
+
+
+
+```js
 vite.config.js
 import config from 'src/.../config.js'//your project configure
 import generateConfigIntoDistfrom "vite-plugin-generate-config-into-dist";
