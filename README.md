@@ -50,3 +50,7 @@ export default ( ) => {
 
 The config you pass in should be a separate JS object. You cannot introduce env in this file, otherwise it will cause the config passed in to be undefined
 
+## Thanks 
+
+@anncwb/vue-vben-admin
+

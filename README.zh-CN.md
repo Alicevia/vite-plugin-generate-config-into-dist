@@ -49,3 +49,7 @@ export default ( ) => {
 ## 注意
 
 你传入的config应该是一个独立的js对象，这个文件内不能引入env，否则会导致传入的config为undefined
+
+## 感谢
+
+@anncwb/vue-vben-admin 
