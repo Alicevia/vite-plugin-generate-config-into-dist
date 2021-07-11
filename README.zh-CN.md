@@ -19,34 +19,32 @@ npm i vite-plugin-generate-config-into-dist -D
 ```
 
 ```js
-vite.config.js
-import config from 'src/.../config.js'//your project configure
-import generateConfigIntoDistfrom "vite-plugin-generate-config-into-dist";
-export default ( ) => {
+vite.config.js;
+import config from "src/.../config.js"; //your project configure
+import generateConfigIntoDist from "vite-plugin-generate-config-into-dist";
+export default () => {
   return {
     plugins: [
       vue(),
-       // useage  1
-      // generateConfigIntoDistfrom({
+      // useage  1
+      // generateConfigIntoDist({
       //   file: "settings.js",
       //   globalName: "unionpay_settings",
-       //  config, //your config must be object
+      //  config, //your config must be object
       // }),
       // useage  2  notice file not the same
-      generateConfigIntoDistfrom(
-        [
-          {
-            file: "settings.js",
-            globalName: "unionpay_settings",
-            config,
-          },
-          {
-            file: "settings2.js",
-            globalName: "unionpay_settings2",
-            config: { skdfj: 1 },
-          },
-        ],
-      )
+      generateConfigIntoDist([
+        {
+          file: "settings.js",
+          globalName: "unionpay_settings",
+          config,
+        },
+        {
+          file: "settings2.js",
+          globalName: "unionpay_settings2",
+          config: { skdfj: 1 },
+        },
+      ]),
     ],
   };
 };
