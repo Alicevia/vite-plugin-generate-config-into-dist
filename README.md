@@ -14,15 +14,15 @@ After the project is packaged and online, it may need to change the background i
 
 #### This plug-in does not work in the dev state
 
-If I want to export both the key and value pairs in the env file used in vite and the objects in the local project configuration  
+If I want to export both the key and value pairs in the env file used in vite and the objects in the local project configuration
 
-The plugin itself will fetch the environment variable that starts with VITE to be used, and it will also export the project configuration. After all, sometimes you won't write everything to the environment variable, so I'll throw them all together, and you can pass in a config object to implement the above idea. Finally, export them as a settings.js file  
+The plugin itself will fetch the environment variable that starts with VITE to be used, and it will also export the project configuration. After all, sometimes you won't write everything to the environment variable, so I'll throw them all together, and you can pass in a config object to implement the above idea. Finally, export them as a settings.js file
 
-Eventually we want settings.js to be automatically inserted into index.html after packaging, so you can use vite-plugin-html instead  
+Eventually we want settings.js to be automatically inserted into index.html after packaging, so you can use vite-plugin-html instead
 
-Under the conditions of production In the head tag into a < script src = "/ settings. js" > < / script >  
+Under the conditions of production In the head tag into a < script src = "/ settings. js" > < / script >
 
-Achieve the functions that are automatically introduced after packaging  
+Achieve the functions that are automatically introduced after packaging
 
 ```
 use vite-plugin-html
@@ -51,8 +51,6 @@ index.html =============
 </html>
 ```
 
-
-
 ## Usage
 
 ```js
@@ -72,19 +70,19 @@ export default () => {
       // useage  1
       // generateConfigIntoDist({
       //   file: "settings.js",
-      //   globalName: "unionpay_settings",
+      //   globalName: "your_settings",
       //  config, //your config must be object
       // }),
       // useage  2  notice file not the same
       generateConfigIntoDist([
         {
           file: "settings.js",
-          globalName: "unionpay_settings",
+          globalName: "your_settings",
           config,
         },
         {
           file: "settings2.js",
-          globalName: "unionpay_settings2",
+          globalName: "your_settings2",
           config: { skdfj: 1 },
         },
       ]),

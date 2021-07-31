@@ -19,11 +19,11 @@ function writeSettingFile(options, outDir, env) {
   writeFile(options.file, options.data, options.options || {}, (err) => {
     if (err) {
       options.reject && options.reject(err);
-      console.error("settings创建失败,你可能需要重新打包" + err);
+      console.error("settings creates fail,you maybe need rebuild" + err);
       return;
     }
     options.resolve && options.resolve(err);
-    console.info("settings创建成功");
+    console.info("settings create success!!!");
   });
 }
 function generateSettings(options, outDir, env) {
@@ -35,7 +35,7 @@ function generateSettings(options, outDir, env) {
   }
   writeSettingFile(options, outDir, Object.assign({}, env, options.config));
 }
- function generateConfigIntoDist (options, userConfig)  {
+function generateConfigIntoDist(options, userConfig) {
   let config, mode;
   return {
     apply: "build",
@@ -48,13 +48,11 @@ function generateSettings(options, outDir, env) {
       mode = arg[1].mode;
     },
     closeBundle() {
-      console.log(userConfig, "sdf");
       const env = loadEnv(mode, process.cwd());
       let outDir = `${config.root}/${config.build.outDir}/`;
       generateSettings(options, outDir, env);
     },
   };
-};
-export {generateConfigIntoDist}
-export default generateConfigIntoDist
-
+}
+export { generateConfigIntoDist };
+export default generateConfigIntoDist;
